@@ -1,0 +1,41 @@
+Given an array nums with n integers, your task is to check if it could become non-decreasing by modifying at most one element.
+
+We define an array is non-decreasing if nums[i] <= nums[i + 1] holds for every i (0-based) such that (0 <= i <= n - 2).
+
+Example 1:
+
+Input: nums = [4,2,3]
+Output: true
+Explanation: You could modify the first 4 to 1 to get a non-decreasing array.
+Example 2:
+
+Input: nums = [4,2,1]
+Output: false
+Explanation: You cannot get a non-decreasing array by modifying at most one element.
+
+
+
+class Solution {
+    public boolean checkPossibility(int[] nums) {
+        int count = 0; // Initialize a counter to track the number of modifications
+        
+        for(int i = 0; i < nums.length - 1; i++){ // Loop through the array
+            if(nums[i] > nums[i + 1]){ // Check if the current element is greater than the next
+                count++; // Increment the counter since this pair is problematic
+                
+                // If more than one modification is needed, return false
+                if(count > 1){
+                    return false;
+                }
+                
+                // If the previous element is greater than the next element, adjust the next element
+                if(i > 0 && nums[i - 1] > nums[i + 1]){
+                    nums[i + 1] = nums[i];
+                }
+            }
+        }
+
+        // If the loop completes, the array can be made non-decreasing with at most one modification
+        return true;
+    }
+}
